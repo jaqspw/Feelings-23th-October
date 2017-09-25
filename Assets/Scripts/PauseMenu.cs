@@ -28,9 +28,11 @@ public class PauseMenu : MonoBehaviour {
 
 		if (ui.activeSelf) {
 			Time.timeScale = 0f;
+			Cursor.visible = true;
 		} else {
 			Time.timeScale = 1f;
-		}
+			Cursor.visible = false;
+		}	
 	}
 
 	public void Retry ()
@@ -42,6 +44,7 @@ public class PauseMenu : MonoBehaviour {
 	public void Menu (){
 		Toggle ();
 		sceneFader.FadeTo (menuSceneName);
+		Cursor.visible = true;
 	}
 		
 
