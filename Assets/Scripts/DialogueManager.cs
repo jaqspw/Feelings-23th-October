@@ -5,20 +5,39 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour {
 
+	public static DialogueManager Instance;
+
 	public Text nameText;
 	public Text dialogueText;
-
+	public bool isActive;
 	public Animator animator;
 
 	private Queue<string> sentences;
+
+	void Awake()
+	{
+		if (Instance == null)
+			Instance = this;
+		else if (Instance != this)
+			Destroy (this.gameObject);
+	}
 
 	// Use this for initialization
 	void Start () {
 		sentences = new Queue<string> ();
 	}
 
-	public void StartDialogue (Dialogue dialogue){
+	void Update()
+	{
+		if (Input.GetKeyDown (KeyCode.Space))
+		{
+			DisplayNextSentece ();
+		}
+	}
 
+
+	public void StartDialogue (Dialogue dialogue){
+		isActive = true;
 		animator.SetBool ("IsOpen", true);
 
 		Cursor.visible = true;
@@ -55,10 +74,10 @@ public class DialogueManager : MonoBehaviour {
 		}
 	}
 
-	void EndDialogue(){
+	public void EndDialogue(){
 		animator.SetBool ("IsOpen", false);
 		Cursor.visible = false;
-
+		isActive = false;
 	}
 
 }

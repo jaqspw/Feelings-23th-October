@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour {
 	float currentSpeed;
 	float velocityY;
 
+	bool disableControl;
+
 	Animator animator;
 	Transform cameraT;
 	CharacterController controller;
@@ -36,10 +38,12 @@ public class PlayerController : MonoBehaviour {
 		cameraT = Camera.main.transform;
 		controller = GetComponent<CharacterController> ();
 	}
-	
+		
 	// Update is called once per frame
 	void Update () {
-		
+		if (DialogueManager.Instance.isActive)
+			return;
+
 		//Input
 		Vector2 input = new Vector2 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
 		Vector2 inputDir = input.normalized;
