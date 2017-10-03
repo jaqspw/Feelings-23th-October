@@ -25,12 +25,12 @@ public class PlayerController : MonoBehaviour {
 	Transform cameraT;
 	CharacterController controller;
 
-	[Header("Sounds")]
-	public AudioClip[] grassSounds;
-	public AudioClip[] woodSounds;
-	public AudioClip[] waterSounds;
-	private int audioTypeIndex;
-	public AudioSource audioSource;
+//	[Header("Sounds")]
+//	public AudioClip[] grassSounds;
+//	public AudioClip[] woodSounds;
+//	public AudioClip[] waterSounds;
+	public int audioTypeIndex;
+//	public AudioSource audioSource;
 
 	// Use this for initialization
 	void Start () {
@@ -53,8 +53,6 @@ public class PlayerController : MonoBehaviour {
 		} else {
 			audioTypeIndex = 0;
 		}
-
-		audioSource.clip = grassSounds [audioTypeIndex];
 
 		Move (inputDir, running);
 
