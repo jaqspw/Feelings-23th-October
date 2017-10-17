@@ -4,24 +4,37 @@ using UnityEngine;
 
 public class Npc : MonoBehaviour {
 
-	[SerializeField] DialogueTrigger dialogueTrigger;
+	//[SerializeField] DialogueTrigger dialogueTrigger;
+	DialogueManager dm;
 	public GameObject pressPanel;
+	public int idDialogue;
 
-	void Update()
+	void Start()
 	{
-		if (Input.GetKeyDown (KeyCode.F) && !DialogueManager.Instance.isActive)
+		dm = FindObjectOfType<DialogueManager> ();
+	}
+
+	void OnTriggerStay(Collider other)
+	{
+		if (other.CompareTag("Player"))
 		{
-			ShowDialogue ();
-			pressPanel.SetActive (false);
+			if (Input.GetKeyDown (KeyCode.F) && !dm.isActive)
+			{
+				print (idDialogue);
+				print (this.name);
+				ShowDialogue (idDialogue);
+				pressPanel.SetActive (false);
+			}
 		}
+
 	}
 
 
 	void OnTriggerEnter (Collider other)
 	{
 		if (other.CompareTag("Player") && !pressPanel.activeInHierarchy) {
+			print (this.name);
 			pressPanel.SetActive (true);
-
 		}
 	}
 
@@ -30,15 +43,15 @@ public class Npc : MonoBehaviour {
 		if (other.CompareTag("Player"))
 		{
 			pressPanel.SetActive (false);
-			if (DialogueManager.Instance.isActive) 
+			if (dm.isActive) 
 			{
-				DialogueManager.Instance.EndDialogue ();
+				dm.EndDialogue ();
 			}
 		}
 	}
 
-	private void ShowDialogue()
+	private void ShowDialogue(int id)
 	{
-		dialogueTrigger.TriggerDialogue ();
+		FindObjectOfType<DialogueTrigger>().TriggerDialogue (this, id);
 	}
 }

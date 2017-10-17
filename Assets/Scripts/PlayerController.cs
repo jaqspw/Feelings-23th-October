@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour {
 	Animator animator;
 	Transform cameraT;
 	CharacterController controller;
+	DialogueManager dm;
 
 //	[Header("Sounds")]
 //	public AudioClip[] grassSounds;
@@ -37,11 +38,12 @@ public class PlayerController : MonoBehaviour {
 		animator = GetComponent<Animator> ();
 		cameraT = Camera.main.transform;
 		controller = GetComponent<CharacterController> ();
+		dm = FindObjectOfType<DialogueManager> ();
 	}
 		
 	// Update is called once per frame
 	void Update () {
-		if (DialogueManager.Instance.isActive)
+		if (dm.isActive)
 			return;
 
 		//Input
@@ -107,4 +109,5 @@ public class PlayerController : MonoBehaviour {
 		}
 		return SmoothTime / airControlPercent;
 	}
+		
 }

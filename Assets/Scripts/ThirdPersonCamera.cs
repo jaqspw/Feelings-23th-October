@@ -14,12 +14,14 @@ public class ThirdPersonCamera : MonoBehaviour {
 	Vector3 rotationSmoothVelocity;
 	Vector3 currentRotation;
 
+	DialogueManager dm;
 
 	float yaw;
 	float pitch;
 
 	// Use this for initialization
 	void Start () {
+		dm = FindObjectOfType<DialogueManager> ();
 		if (lockCursor) {
 			Cursor.lockState = CursorLockMode.Locked;
 			Cursor.visible = false;
@@ -28,7 +30,7 @@ public class ThirdPersonCamera : MonoBehaviour {
 	
 	// Update is called once per frame
 	void LateUpdate () {
-		if (DialogueManager.Instance.isActive)
+		if (dm.isActive)
 			return;
 		
 		yaw += Input.GetAxis ("Mouse X") * mouseSensitivity;

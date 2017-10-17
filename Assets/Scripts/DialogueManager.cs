@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour {
 
-	public static DialogueManager Instance;
+	//public static DialogueManager Instance;
 
+	public DialogueTrigger dialogues;
 	public Text nameText;
 	public Text dialogueText;
 	public bool isActive;
@@ -16,10 +17,10 @@ public class DialogueManager : MonoBehaviour {
 
 	void Awake()
 	{
-		if (Instance == null)
-			Instance = this;
-		else if (Instance != this)
-			Destroy (this.gameObject);
+//		if (Instance == null)
+//			Instance = this;
+//		else if (Instance != this)
+//			Destroy (this.gameObject);
 	}
 
 	// Use this for initialization
@@ -36,17 +37,17 @@ public class DialogueManager : MonoBehaviour {
 	}
 
 
-	public void StartDialogue (Dialogue dialogue){
+	public void StartDialogue (int id){
 		isActive = true;
 		animator.SetBool ("IsOpen", true);
 
 		Cursor.visible = true;
 
-		nameText.text = dialogue.name;
+		nameText.text = dialogues.dialogue[id].name;
 
 		sentences.Clear ();
 
-		foreach (string sentence in dialogue.sentences) {
+		foreach (string sentence in dialogues.dialogue[id].sentences) {
 			sentences.Enqueue (sentence);
 		}
 
